@@ -28,7 +28,8 @@ export class AuthService {
       return null;
     }
 
-    const { password: _, refreshToken: __, ...result } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, refreshToken: _refreshToken, ...result } = user;
     return result;
   }
 
@@ -93,7 +94,8 @@ export class AuthService {
     if (!user) {
       return null;
     }
-    const { password, refreshToken, ...result } = user;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, refreshToken: _refreshToken, ...result } = user;
     return result;
   }
 }
