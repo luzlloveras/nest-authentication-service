@@ -14,6 +14,17 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+database.sqlite
+
 # Tests
 /coverage
 /.nyc_output
@@ -33,3 +44,6 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Build info
+*.tsbuildinfo
