@@ -10,22 +10,19 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
 
-  // Global exception filter
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  // Global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Strip properties that don't have decorators
-      forbidNonWhitelisted: true, // Throw error if non-whitelisted properties are present
-      transform: true, // Automatically transform payloads to DTO instances
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
       transformOptions: {
-        enableImplicitConversion: true, // Enable implicit type conversion
+        enableImplicitConversion: true,
       },
     }),
   );
 
-  // CORS configuration
   app.enableCors({
     origin: process.env.CORS_ORIGIN || '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
@@ -33,10 +30,9 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Swagger/OpenAPI documentation
   const config = new DocumentBuilder()
     .setTitle('Authentication Service API')
-    .setDescription('Complete authentication service with JWT, refresh tokens, and user management')
+    .setDescription('JWT authentication with refresh tokens')
     .setVersion('2.0.0')
     .addBearerAuth(
       {
@@ -47,16 +43,15 @@ async function bootstrap() {
         description: 'Enter JWT token',
         in: 'header',
       },
-      'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
+      'JWT-auth',
     )
     .addTag('auth', 'Authentication endpoints')
-    .addTag('users', 'User management endpoints')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(port);
-  console.log(`🚀 Server is running on http://localhost:${port}`);
-  console.log(`📚 Swagger documentation available at http://localhost:${port}/api`);
+  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Swagger docs at http://localhost:${port}/api`);
 }
 bootstrap();

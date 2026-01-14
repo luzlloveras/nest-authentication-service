@@ -31,14 +31,11 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Register a new user' })
+  @ApiOperation({ summary: 'Register user' })
   @ApiBody({ type: RegisterDto })
-  @ApiResponse({
-    status: 201,
-    description: 'User successfully registered',
-  })
+  @ApiResponse({ status: 201, description: 'User registered' })
   @ApiResponse({ status: 400, description: 'Validation error' })
-  @ApiResponse({ status: 409, description: 'Username already exists' })
+  @ApiResponse({ status: 409, description: 'Username exists' })
   async register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
@@ -46,12 +43,9 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Login user and get JWT tokens' })
+  @ApiOperation({ summary: 'Login' })
   @ApiBody({ type: LoginDto })
-  @ApiResponse({
-    status: 200,
-    description: 'Login successful, returns access and refresh tokens',
-  })
+  @ApiResponse({ status: 200, description: 'Returns access and refresh tokens' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   async login(@Request() req) {
     if (!req.user) {
@@ -62,13 +56,10 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Refresh access token using refresh token' })
+  @ApiOperation({ summary: 'Refresh token' })
   @ApiBody({ type: RefreshTokenDto })
-  @ApiResponse({
-    status: 200,
-    description: 'New access token generated',
-  })
-  @ApiResponse({ status: 401, description: 'Invalid or expired refresh token' })
+  @ApiResponse({ status: 200, description: 'Returns new access token' })
+  @ApiResponse({ status: 401, description: 'Invalid refresh token' })
   async refresh(@Body() refreshTokenDto: RefreshTokenDto) {
     return this.authService.refreshToken(refreshTokenDto.refresh_token);
   }
@@ -77,11 +68,8 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Logout user and invalidate refresh token' })
-  @ApiResponse({
-    status: 200,
-    description: 'User logged out successfully',
-  })
+  @ApiOperation({ summary: 'Logout' })
+  @ApiResponse({ status: 200, description: 'Logged out' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async logout(@Request() req) {
     return this.authService.logout(req.user.id);
@@ -90,11 +78,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Get authenticated user profile' })
-  @ApiResponse({
-    status: 200,
-    description: 'User profile retrieved successfully',
-  })
+  @ApiOperation({ summary: 'Get profile' })
+  @ApiResponse({ status: 200, description: 'User profile' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getProfile(@Request() req) {
     return req.user;

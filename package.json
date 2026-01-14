@@ -1,7 +1,7 @@
 {
   "name": "nest-authentication-service",
   "version": "2.0.0",
-  "description": "Complete authentication service with NestJS featuring JWT, refresh tokens, user registration, and SQLite database",
+  "description": "NestJS authentication service with JWT and refresh tokens",
   "author": "",
   "private": false,
   "license": "MIT",

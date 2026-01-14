@@ -28,7 +28,6 @@ export class AuthService {
       return null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _password, refreshToken: _refreshToken, ...result } = user;
     return result;
   }
@@ -48,7 +47,6 @@ export class AuthService {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET') || this.configService.get<string>('JWT_SECRET'),
     });
 
-    // Save refresh token to database
     await this.usersService.updateRefreshToken(user.id, refreshToken);
 
     return {
@@ -94,7 +92,6 @@ export class AuthService {
     if (!user) {
       return null;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _password, refreshToken: _refreshToken, ...result } = user;
     return result;
   }
