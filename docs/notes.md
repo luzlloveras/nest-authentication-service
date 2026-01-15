@@ -12,10 +12,6 @@
 
 **CORS wide open**: Defaults to `*` for dev. Lock it down in production.
 
-## Testing
-
-Run `./test-api.sh` or use the Swagger UI at `/api` to test endpoints manually.
-
 ## Next Steps
 
 - Add rate limiting
