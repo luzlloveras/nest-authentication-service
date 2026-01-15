@@ -48,9 +48,6 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Returns access and refresh tokens' })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
   async login(@Request() req) {
-    if (!req.user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
     return this.authService.login(req.user);
   }
 

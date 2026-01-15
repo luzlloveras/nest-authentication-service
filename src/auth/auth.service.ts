@@ -84,7 +84,7 @@ export class AuthService {
 
   async logout(userId: number) {
     await this.usersService.removeRefreshToken(userId);
-    return { message: 'Logged out successfully' };
+    return { message: 'Logged out' };
   }
 
   async validateJwtPayload(payload: any) {
